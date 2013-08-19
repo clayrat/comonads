@@ -23,6 +23,9 @@ object test {
   def main(args: Array[String]) = {
     val a = (1 to 10).toStream
     println(streamC.cobind(a)(streamC.copoint).toList) // identity
+    
+    def nats: Stream[Int] = 0 #:: streamC.cobind(nats)(streamC.copoint(_) + 1)
+    println(nats.take(8).force)
   }
 
 }
